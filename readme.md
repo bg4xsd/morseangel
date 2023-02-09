@@ -165,7 +165,9 @@ FFT size and overlay is automatically selected for optimal values depending on s
 ---------------------------------------
 
 Notes by BFcat  2023.2.9
+  
    The original morselangel works well on Linux, I have test it on Ubuntu22.04, but not winodws 11. I have patched a few code.
+  
    For Windows 11 64bit, python 3.9.15, pyqt5 5.15.9, torch 3.13.1, it can run and display is OK, but the code running with time delay, I will try to modify and tune it.
    
 Have fun.
