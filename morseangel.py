@@ -396,6 +396,10 @@ class MainWindow(QtWidgets.QMainWindow):
         format = QtMultimedia.QAudioFormat()
         format.setSampleRate(self.audio_rate)
         format.setChannelCount(1)
+        import platform
+        plat = platform.system().lower()
+        if plat == 'windows': #for windows
+            format.setSampleSize(32) # Add this line, init audio will be OK
         format.setByteOrder(QtMultimedia.QAudioFormat.LittleEndian)
         format.setSampleType(QtMultimedia.QAudioFormat.Float)
         if (self.audio_device.isFormatSupported(format) is not True):
@@ -431,7 +435,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 # data[data > 1] = 1
                 # data[data < -1] = -1
                 self.sc_time.new_data(data)
-                nb_samples = len(buffer_bytes) // self.audio_bytes
+                # nb_samples = len(buffer_bytes) // self.audio_bytes # work for linux
+                # nb_samples = buffer_bytes.size() // self.audio_bytes # work for linux
+                nb_samples = len(data) # works for windows, hardcode
                 self.peak_signal[self.peak_signal_index:self.peak_signal_index+nb_samples] = data
                 self.peak_signal_index += nb_samples
                 if self.peak_signal_index > self.nfft_peak:
